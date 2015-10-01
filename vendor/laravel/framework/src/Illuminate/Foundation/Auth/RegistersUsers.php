@@ -16,12 +16,7 @@ trait RegistersUsers
      */
     public function getRegister()
     {
-        return view($this->baseview, [
-            'content_template' => 'user.auth.register',
-            'vars' => [
-                'head_title' => 'Join us!',
-            ],
-        ])->render();
+        return view('auth.register');
     }
 
     /**

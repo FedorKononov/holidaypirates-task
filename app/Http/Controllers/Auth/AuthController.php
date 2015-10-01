@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
+    public $loginPath = '/login';
+
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
@@ -61,5 +63,35 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    /**
+     * Show the application login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getLogin()
+    {
+        return view($this->baseview, [
+            'content_template' => 'user.auth.login',
+            'vars' => [
+                'head_title' => 'Login',
+            ],
+        ])->render();
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getRegister()
+    {
+        return view($this->baseview, [
+            'content_template' => 'user.auth.register',
+            'vars' => [
+                'head_title' => 'Join us!',
+            ],
+        ])->render();
     }
 }
