@@ -1,0 +1,4 @@
+.env
+bootstrap/cache/**
+vendor/compiled.php
+storage/**
