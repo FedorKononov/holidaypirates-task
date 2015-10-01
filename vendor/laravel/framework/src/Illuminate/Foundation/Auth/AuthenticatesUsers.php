@@ -10,6 +10,8 @@ trait AuthenticatesUsers
 {
     use RedirectsUsers;
 
+    public $loginPath = '/login';
+
     /**
      * Show the application login form.
      *
@@ -17,11 +19,12 @@ trait AuthenticatesUsers
      */
     public function getLogin()
     {
-        if (view()->exists('auth.authenticate')) {
-            return view('auth.authenticate');
-        }
-
-        return view('auth.login');
+        return view($this->baseview, [
+            'content_template' => 'user.auth.login',
+            'vars' => [
+                'head_title' => 'Login',
+            ],
+        ])->render();
     }
 
     /**
