@@ -10,7 +10,6 @@ trait AuthenticatesUsers
 {
     use RedirectsUsers;
 
-
     /**
      * Show the application login form.
      *
