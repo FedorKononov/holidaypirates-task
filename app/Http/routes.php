@@ -25,3 +25,7 @@ Route::post('moderator/user/{id}/edit', 'Moderator\User\UserController@update');
 Route::get('moderator/group', 'Moderator\User\GroupController@index');
 Route::get('moderator/group/create', 'Moderator\User\GroupController@create');
 Route::post('moderator/group/create', 'Moderator\User\GroupController@store');
+
+Route::get('moderator/permission', 'Moderator\User\PermissionController@index');
+Route::get('moderator/permission/create', 'Moderator\User\PermissionController@create');
+Route::post('moderator/permission/create', 'Moderator\User\PermissionController@store');
