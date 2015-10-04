@@ -65,7 +65,7 @@ class UserController extends ModeratorController
 
         if ($validator->passes())
         {
-            $groups = Group::whereIn('id', $request->get('groups'))->lists('id')->toArray();
+            $groups = Group::whereIn('id', $request->get('group'))->lists('id')->toArray();
 
             $user = $this->users->find($request->get('id'));
 

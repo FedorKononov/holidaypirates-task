@@ -39,16 +39,16 @@
     <?endif;?>
 
 
-    <?  if ($errors->has('groups'))
-            echo $errors->first('groups'), '<br/>';
+    <?  if ($errors->has('group'))
+            echo $errors->first('group'), '<br/>';
     ?>
 
-    <?= Form::label('groups', 'Groups: ') ?>
+    <?= Form::label('group', 'Groups: ') ?>
     <?
-        $selected = old('groups', !empty($user) ? $user->groups->lists('id') : []);
+        $selected = old('group', !empty($user) ? $user->groups->lists('id')->toArray() : []);
 
         foreach ($groups as $item)
-            echo '<br/>', Form::checkbox('groups[]', $item->id, in_array($item->id, $selected)), ' ', $item->title;
+            echo '<br/>', Form::checkbox('group[]', $item->id, in_array($item->id, $selected)), ' ', $item->title;
     ?>
     <br/><br/>
 
