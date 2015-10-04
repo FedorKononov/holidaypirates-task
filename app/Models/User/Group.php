@@ -9,6 +9,13 @@ class Group extends Model {
     protected $table = 'user_group';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['title', 'code'];
+
+    /**
      * Many2Many connection with permissions
      */
     public function permissions()

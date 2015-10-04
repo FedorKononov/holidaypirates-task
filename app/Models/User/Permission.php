@@ -11,6 +11,13 @@ class Permission extends Model {
     public static $group_pivot_table = 'user_group_permission';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['title', 'code'];
+
+    /**
      * Many2Many connection with groups
      */
     public function groups()

@@ -54,7 +54,7 @@ class User extends Model implements AuthenticatableContract,
     {
         return [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:user,email'. ($id ? ','. $id : ''),
+            'email' => 'required|email|max:255|unique:'. $this->table .',email'. ($id ? ','. $id : ''),
             'password' => ($id ? '' : 'required|') . 'confirmed|min:6',
         ];
     }

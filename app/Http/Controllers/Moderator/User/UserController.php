@@ -82,9 +82,7 @@ class UserController extends ModeratorController
                 if ($request->get('password'))
                     $fields['password'] = $request->get('password');
 
-                $user->fill($fields);
-
-                if ($user->save())
+                if ($user->update($fields))
                 {
                     $user->groups()->sync($groups);
 
