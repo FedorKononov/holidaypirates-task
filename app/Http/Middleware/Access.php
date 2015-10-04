@@ -2,11 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
+use Closure, Route;
 use Illuminate\Contracts\Auth\Guard;
 
-class RedirectIfAuthenticated
+class Access
 {
+
     /**
      * The Guard implementation.
      *
@@ -34,10 +35,14 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next)
     {
-        if ($this->auth->check()) {
-            return redirect('/');
+        /*
+        if ( ! $this->auth->can(Route::currentRouteAction()))
+        {
+            return abort(403);
         }
+        */
 
         return $next($request);
     }
+
 }

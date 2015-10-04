@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
          */
         $base = realpath(base_path('resources/views'));
         view()->addNamespace('pirates', $base.'/pirates');
-        view()->addNamespace('adm', $base.'/adm');
+        view()->addNamespace('moderator', $base.'/moderator');
 
         /**
          * Hook for adding theme support and making global view variables
