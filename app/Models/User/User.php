@@ -16,6 +16,16 @@ class User extends Model implements AuthenticatableContract,
 {
     use Authenticatable, Authorizable, CanResetPassword;
 
+    public static $group_pivot_table = 'user_group_user';
+
+    /**
+     * Many2Many connection with groups
+     */
+    public function groups()
+    {
+        return $this->BelongsToMany('App\Models\User\Group', self::$group_pivot_table);
+    }
+
     /**
      * The database table used by the model.
      *
