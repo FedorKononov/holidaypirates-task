@@ -1,8 +1,7 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Job\JobController@index');
+Route::get('job/create', 'Job\JobController@create');
 
 
 // Authentication routes...

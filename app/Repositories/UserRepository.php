@@ -8,7 +8,8 @@ use App\Models\User\User;
  * Users repository layer
  */
 
-class UserRepository extends BaseRepository {
+class UserRepository extends BaseRepository
+{
 
 	public function __construct(User $model)
 	{

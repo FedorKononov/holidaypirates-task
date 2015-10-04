@@ -6,7 +6,8 @@ namespace App\Repositories;
  * Repository layer to access models
  */
 
-abstract class BaseRepository {
+abstract class BaseRepository
+{
 
 	protected $model;
 

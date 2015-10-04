@@ -30,6 +30,14 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
+     * User's job offers
+     */
+    public function jobs()
+    {
+        return $this->HasMany('App\Models\Job\Job');
+    }
+
+    /**
      * The database table used by the model.
      *
      * @var string
