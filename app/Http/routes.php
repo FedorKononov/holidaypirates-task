@@ -27,6 +27,8 @@ Route::post('register', 'Auth\AuthController@postRegister');
 
 // Moderator routes
 
-Route::get('moderator/job', 'Moderator\Job\JobController@getIndex');
+Route::get('moderator/job', 'Moderator\Job\JobController@index');
 
-Route::resource('moderator/user', 'Moderator\User\UserController');
+Route::get('moderator/user', 'Moderator\User\UserController@index');
+Route::get('moderator/user/{id}/edit', 'Moderator\User\UserController@edit');
+Route::post('moderator/user/{id}/edit', 'Moderator\User\UserController@update');

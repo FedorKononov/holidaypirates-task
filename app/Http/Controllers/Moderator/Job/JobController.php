@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Moderator\Job;
 
 use App\Http\Controllers\Moderator\ModeratorController;
-use Request;
+use Illuminate\Http\Request;
 
 class JobController extends ModeratorController
 {
@@ -15,7 +15,7 @@ class JobController extends ModeratorController
      *
      * Moderator list of job offers
      */
-    public function getIndex(Request $request)
+    public function index(Request $request)
     {
         return view()->make($this->baseview)->with([
             'content_template' => $this->view .'.index',

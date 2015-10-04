@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Moderator\User;
 use App\Http\Controllers\Moderator\ModeratorController;
 use App\Repositories\UserRepository;
 use App\Models\User\Group;
-use Request;
+use Illuminate\Http\Request;
 
 class UserController extends ModeratorController
 {
@@ -59,21 +59,18 @@ class UserController extends ModeratorController
     /**
      * Updating user
      */
-    public function update(Request $request)
+    public function update($uid, Request $request)
     {
-        $validator = \Validator::make($request->all(), $this->users->getModel()->validatorRules());
+        $validator = \Validator::make($request->all(), $this->users->getModel()->validatorRules($request->get('id')));
 
         if ($validator->passes())
         {
-            $groups = Group::whereIn('id', $request->get('groups'))->lists('id');
+            $groups = Group::whereIn('id', $request->get('groups'))->lists('id')->toArray();
 
-            if (!count($groups))
-                $validator->errors()->add('find_group_fail', true);
-
-            $user = $this->users->find();
+            $user = $this->users->find($request->get('id'));
 
             if (empty($user))
-                $validator->errors()->add('model_edit_fail', true);
+                $validator->errors()->add('user_not_found', true);
 
             if ( ! $validator->errors()->count())
             {
@@ -98,6 +95,6 @@ class UserController extends ModeratorController
             }
         }
 
-        return redirect()->to($this->uri .'/edit/'. $request->get('nickname'))->withErrors($validator)->withInput();
+        return redirect()->to($this->uri .'/'. $request->get('id') .'/edit')->withErrors($validator)->withInput();
     }
 }
