@@ -35,12 +35,10 @@ class Access
      */
     public function handle($request, Closure $next)
     {
-        /*
-        if ( ! $this->auth->can(Route::currentRouteAction()))
+        if ( ! $this->auth->getUser()->can(Route::currentRouteAction()))
         {
             return abort(403);
         }
-        */
 
         return $next($request);
     }

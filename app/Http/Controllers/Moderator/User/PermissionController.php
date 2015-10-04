@@ -41,7 +41,7 @@ class PermissionController extends ModeratorController
     {
         $validator = \Validator::make($request->all(), [
             'title' => 'required|max:255',
-            'code'  => 'required|regex:/^[@._a-zA-Z]+$/|max:255|unique:'. (new Permission)->getTable(),
+            'code'  => 'required|regex:/^[@._a-zA-Z\\]+$/|max:255|unique:'. (new Permission)->getTable(),
         ]);
 
         if ($validator->passes())

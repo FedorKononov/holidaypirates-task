@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Repositories\UserRepository;
 use App\Models\User\Group;
+use App\Models\User\Permission;
 
 class UserTableSeeder extends Seeder
 {
@@ -23,6 +24,12 @@ class UserTableSeeder extends Seeder
     {
         $this->users->newQuery()->delete();
         (new Group)->newQuery()->delete();
+        (new Permission)->newQuery()->delete();
+
+        $moder_job_perm = Permission::create([
+            'title' => 'JobController@index',
+            'code' => 'App\Http\Controllers\Moderator\Job\JobController@index',
+        ]);
 
         $admins_group = Group::create([
             'title' => 'Admins',
@@ -33,6 +40,8 @@ class UserTableSeeder extends Seeder
             'title' => 'Moderators',
             'code' => 'moderators',
         ]);
+
+        $moderators_group->permissions()->sync([$moder_job_perm->id]);
 
         $admin = $this->users->create([
             'name' => 'admin',
