@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
         /**
          * Hook for adding theme support and making global view variables
          */
-        view()->composer('pirates::layout.page', function($view)
+        view()->composer('*::layout.page', function($view)
         {
             $shared = $view->getFactory()->getShared();
 

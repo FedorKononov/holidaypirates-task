@@ -26,4 +26,7 @@ Route::get('register', 'Auth\AuthController@getRegister');
 Route::post('register', 'Auth\AuthController@postRegister');
 
 // Moderator routes
+
 Route::get('moderator/job', 'Moderator\Job\JobController@getIndex');
+
+Route::resource('moderator/user', 'Moderator\User\UserController');

@@ -46,4 +46,16 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    /**
+     * Basic validator rules
+     */
+    public function validatorRules($id = null)
+    {
+        return [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:user,email'. ($id ? ','. $id : ''),
+            'password' => 'required|confirmed|min:6',
+        ];
+    }
 }

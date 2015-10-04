@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 
-	<?= View::make('layout.meta')->render() ?>
+    <?= View::make('layout.meta')->render() ?>
 
-	<body>
+    <body>
+        <?= view($content_template)->render(); ?>
 
-		<?= view($content_template)->render(); ?>
-
-		<?= View::make('layout.footer')->render() ?>
-	</body>
+        <?= View::make('layout.footer')->render() ?>
+    </body>
 </html>
