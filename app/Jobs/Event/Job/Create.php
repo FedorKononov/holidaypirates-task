@@ -7,8 +7,10 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
-;
 use App\Repositories\JobRepository;
+use App\Repositories\UserRepository;
+use App\Models\User\Group;
+use Mail;
 
 class Create extends Job implements SelfHandling, ShouldQueue
 {
@@ -21,9 +23,10 @@ class Create extends Job implements SelfHandling, ShouldQueue
      *
      * @return void
      */
-    public function __construct(JobRepository $jobs)
+    public function __construct(JobRepository $jobs, UserRepository $users)
     {
         $this->jobs = $jobs;
+        $this->users = $users;
     }
 
     /**
@@ -49,18 +52,27 @@ class Create extends Job implements SelfHandling, ShouldQueue
             // Move job to moderations status
             $job_offer->statusShift('moderation');
 
-            // Moderator should be notified
+            // Moderators should be notified
+            $moderators = Group::where('code', 'moderators')->first()->users()->take(20)->get();
 
-            // User should be notified
+            foreach ($moderators as $moderator)
+            {
+                Mail::send('emails.event.job.create.moderator', ['moderator' => $moderator, 'job' => $job_offer], function ($m) use ($moderator) {
+                    $m->to($moderator->email, $moderator->name)->subject('New job offer for moderation');
+                });
+            }
         }
-
-
         else
         {
             // Move job_offer to active status
             $job_offer->statusShift('active');
         }
 
-        $this->delete();
+        // User should be notified
+        Mail::send('emails.event.job.create.user', ['job' => $job_offer], function ($m) use ($job_offer) {
+            $m->to($job_offer->user->email, $job_offer->user->name)->subject('New job offer from you');
+        });
+
+        $job->delete();
     }
 }

@@ -22,4 +22,12 @@ class Group extends Model {
     {
         return $this->belongsToMany('App\Models\User\Permission', Permission::$group_pivot_table);
     }
+
+    /**
+     * Many2Many connection with users
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User\User', User::$group_pivot_table);
+    }
 }

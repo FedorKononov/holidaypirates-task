@@ -2,6 +2,8 @@
     <div class="panel-heading">Job offers
         <?if ($auth_user):?>
             <a class="btn btn-success btn-xs pull-right" href="<?=action('Job\JobController@create');?>"><i class="glyphicon glyphicon-edit"></i> Post new</a>
+        <?else:?>
+            <a class="btn btn-danger btn-xs pull-right" href="/register"><i class="glyphicon glyphicon-user"></i> Register to sumbit your job offer</a>
         <?endif;?>
     </div>
 
