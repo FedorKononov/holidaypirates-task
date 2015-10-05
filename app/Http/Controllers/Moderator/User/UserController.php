@@ -61,7 +61,7 @@ class UserController extends ModeratorController
      */
     public function update($uid, Request $request)
     {
-        $validator = \Validator::make($request->all(), $this->users->getModel()->validatorRules($request->get('id')));
+        $validator = \Validator::make($request->all(), $this->users->validatorRules($request->get('id')));
 
         if ($validator->passes())
         {

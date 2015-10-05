@@ -26,6 +26,7 @@ return array(
     'App\\Http\\Middleware\\RedirectIfAuthenticated' => $baseDir . '/app/Http/Middleware/RedirectIfAuthenticated.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Http\\Requests\\Request' => $baseDir . '/app/Http/Requests/Request.php',
+    'App\\Jobs\\Event\\Job\\Create' => $baseDir . '/app/Jobs/Event/Job/Create.php',
     'App\\Jobs\\Job' => $baseDir . '/app/Jobs/Job.php',
     'App\\Models\\Job\\Job' => $baseDir . '/app/Models/Job/Job.php',
     'App\\Models\\User\\Group' => $baseDir . '/app/Models/User/Group.php',

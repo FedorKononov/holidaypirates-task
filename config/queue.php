@@ -44,9 +44,9 @@ return [
 
         'beanstalkd' => [
             'driver' => 'beanstalkd',
-            'host'   => 'localhost',
-            'queue'  => 'default',
-            'ttr'    => 60,
+            'host'   => 'database.vg',
+            'queue'  => 'holidaypirates.default',
+            'ttr'    => 300,
         ],
 
         'sqs' => [
@@ -89,5 +89,9 @@ return [
     'failed' => [
         'database' => 'mysql', 'table' => 'failed_jobs',
     ],
+
+    'separated' => [],
+
+    'prefix' => 'holidaypirates.',
 
 ];

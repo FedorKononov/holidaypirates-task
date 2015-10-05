@@ -1,7 +1,9 @@
 <?php
 
 Route::get('/', 'Job\JobController@index');
+Route::get('job', 'Job\JobController@index');
 Route::get('job/create', 'Job\JobController@create');
+Route::post('job/create', 'Job\JobController@store');
 
 
 // Authentication routes...

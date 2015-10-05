@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\MessageBag;
+use Event;
+use Queue;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -71,6 +73,36 @@ class AppServiceProvider extends ServiceProvider
 
             // setting up base path for templates searching based on current theme
             $view->getFactory()->addLocation($hints[$theme][0]);
+        });
+
+        /**
+         * Proxy for puting events to queue service
+         *
+         * With ability to put some events to separated queue
+         */
+        Event::listen('event.*', function($param)
+        {
+            $pool = Event::firing();
+
+            $handler = 'App\\Jobs\\'. str_replace(' ', '\\', ucwords(str_replace('.', ' ', $pool)));
+
+            if (!class_exists($handler))
+                return;
+
+            $queue = null;
+
+            // if separated queue
+            if (in_array($pool, config('queue.separated')))
+                $queue = config('queue.prefix').$pool;
+
+            try
+            {
+                Queue::push($handler, $param, $queue);
+            }
+            catch (Exception $e)
+            {
+                //echo $e->getMessage();
+            }
         });
     }
 
