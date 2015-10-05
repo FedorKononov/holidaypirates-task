@@ -12,7 +12,7 @@ class Job extends Model
      */
     public function user()
     {
-        return $this->HasOne('App\Models\User\User');
+        return $this->BelongsTo('App\Models\User\User');
     }
 
     /**
@@ -65,5 +65,39 @@ class Job extends Model
             'title' => 'required|max:255',
             'description' => 'required|max:1024',
         ];
+    }
+
+    /**
+     * Status shifting method
+     */
+    public function statusShift($status)
+    {
+        $moves_available = config('models.job.status_moves.'. $this->status, []);
+
+        if (!in_array($status, $moves_available))
+            return false;
+
+        $this->status = $status;
+
+        if ($this->save())
+        {
+            if (method_exists($this, 'onStatusMoved'. $status))
+            {
+                $this->{'onStatusMoved'. $status}();
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Callback for active status movement
+     */
+    protected function onStatusMovedActive()
+    {
+        $this->user->active_jobs++;
+        $this->user->save();
     }
 }

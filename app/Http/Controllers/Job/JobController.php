@@ -19,18 +19,27 @@ class JobController extends Controller
         $this->jobs = $jobs;
 
         // auth check
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['index']]);
     }
 
     /**
-     * List of user's job offers
+     * List of job offers
      */
     public function index(Request $request)
     {
+        $auth_user = auth()->user();
+
+        $items = $this->jobs->where('status', config('models.job.statuses.active'));
+
+        if ($auth_user)
+            $items = $this->jobs->orWhere('user_id', $auth_user->id);
+
+        $items = $items->with('user')->orderBy('created_at', 'desc');
+
         return view()->make($this->baseview)->with([
             'content_template' => $this->view .'.index',
             'vars' => [
-                'items' => auth()->user()->jobs()->orderBy('created_at', 'desc')->paginate(),
+                'items' => $items->paginate(),
             ]
         ])->render();
     }

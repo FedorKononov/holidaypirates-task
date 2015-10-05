@@ -29,7 +29,7 @@ class JobController extends ModeratorController
         return view()->make($this->baseview)->with([
             'content_template' => $this->view .'.index',
             'vars' => [
-                'items' => [],
+                'items' => $this->jobs->with('user')->orderBy('created_at', 'desc')->paginate(),
             ]
         ])->render();
     }
