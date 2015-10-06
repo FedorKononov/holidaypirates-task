@@ -18,5 +18,6 @@ return [
     'status_moves' => [
         'pending' => ['moderation', 'active'],
         'moderation' => ['active', 'rejected'],
+        'active' => ['rejected'],
     ],
 ];

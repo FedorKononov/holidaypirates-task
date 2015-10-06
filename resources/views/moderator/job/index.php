@@ -8,6 +8,7 @@
             <th>Status</th>
             <th>User</th>
             <th>Created</th>
+            <th>Actions</th>
         </tr></thead>
         <tbody>
             <?foreach ($items as $item):?>
@@ -24,6 +25,16 @@
                     <?endif;?>"><?= $item->status?></span></td>
                     <td><?= $item->user->email?></td>
                     <td><?= $item->created_at?></td>
+                    <td>
+                        <div class="btn-group btn-group-xs">
+                            <?if ($item->status == 'moderation'):?>
+                                <a class="btn btn-success" href="/moderator/job/status/<?= $item->id?>/active">approve</a>
+                            <?endif;?>
+                            <?if ($item->status != 'rejected'):?>
+                                <a class="btn btn-danger" href="/moderator/job/status/<?= $item->id?>/rejected">reject</a>
+                            <?endif;?>
+                        </div>
+                    </td>
                 </tr>
             <?endforeach;?>
         </tbody>

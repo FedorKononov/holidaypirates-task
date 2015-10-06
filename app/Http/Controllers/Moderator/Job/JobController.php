@@ -33,4 +33,27 @@ class JobController extends ModeratorController
             ]
         ])->render();
     }
+
+    /**
+     * Approve or Reject job offer
+     */
+    public function statusShift($id, $status, Request $request)
+    {
+        $validator = \Validator::make(['id' => $id, 'status' => $status], [
+            'id' => 'required|integer',
+            'status' => 'required|in:active,rejected'
+        ]);
+
+        if ($validator->passes())
+        {
+            $job = $this->jobs->find($id);
+
+            if (!empty($job))
+            {
+                $job->statusShift($status);
+            }
+        }
+
+        return redirect()->to($this->uri);
+    }
 }

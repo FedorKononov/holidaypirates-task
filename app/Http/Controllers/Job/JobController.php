@@ -32,7 +32,7 @@ class JobController extends Controller
         $items = $this->jobs->where('status', config('models.job.statuses.active'));
 
         if ($auth_user)
-            $items = $this->jobs->orWhere('user_id', $auth_user->id);
+            $items = $items->orWhere('user_id', $auth_user->id);
 
         $items = $items->with('user')->orderBy('created_at', 'desc');
 

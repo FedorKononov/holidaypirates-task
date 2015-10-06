@@ -26,9 +26,13 @@ class UserTableSeeder extends Seeder
         (new Group)->newQuery()->delete();
         (new Permission)->newQuery()->delete();
 
-        $moder_job_perm = Permission::create([
+        $moder_job_perm1 = Permission::create([
             'title' => 'JobController@index',
             'code' => 'App\Http\Controllers\Moderator\Job\JobController@index',
+        ]);
+        $moder_job_perm2 = Permission::create([
+            'title' => 'JobController@statusShift',
+            'code' => 'App\Http\Controllers\Moderator\Job\JobController@statusShift',
         ]);
 
         $admins_group = Group::create([
@@ -41,7 +45,7 @@ class UserTableSeeder extends Seeder
             'code' => 'moderators',
         ]);
 
-        $moderators_group->permissions()->sync([$moder_job_perm->id]);
+        $moderators_group->permissions()->sync([$moder_job_perm1->id, $moder_job_perm2->id]);
 
         $admin = $this->users->create([
             'name' => 'admin',
