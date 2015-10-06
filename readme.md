@@ -40,7 +40,7 @@ I have implemented user based job dashboard. To post a job you have to be regist
 
 I have added theme support based on Laravel view hints (look `AppServiceProvider`). Based on that moderator theme was separated from main user theme (called pirates).
 
-I have added a repository level for some crucial models (User, Job). That was done with thoughts in mind that those models can be very loaded  with database records, and in repository level will help to handle those problems. For example by splitting data to several tables or databases.
+I have added a repository level for some crucial models (User, Job). That was done with thoughts in mind that those models can be heavy loaded  with database records, and in repository level will help to handle those problems. For example by splitting data to several tables or databases.
 
 Controller's actions were named in restful way. Migrations and Seeders were used for schema definition and initial users creation. 
 
