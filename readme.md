@@ -36,7 +36,7 @@ Default permissions:
 
 ## Highlights
 
-I have implemented user based job dashboard. To post a job you have to be registered. Each user can participate in several groups and have corresponding permissions. Those permissions are checked to access some restricted actions. For example users and jobs moderation.
+I have implemented user based job dashboard. To post a job you have to be registered. Each user can participate in several groups and have corresponding permissions. Those permissions are checked to access some restricted actions. For example users and jobs moderation. To gain full access use admin account.
 
 I have add theme support based on Laravel view hints (look `AppServiceProvider`). Based on that moderator theme was separated from main user theme (called pirates).
 
