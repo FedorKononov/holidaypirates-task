@@ -40,11 +40,11 @@ I have implemented user based job dashboard. To post a job you have to be regist
 
 I have added theme support based on Laravel view hints (look `AppServiceProvider`). Based on that moderator theme was separated from main user theme (called pirates).
 
-I have added a repository level for some crucial models (User, Job). That was done with thoughts in mind that those models can be heavy loaded  with database records, and in repository level will help to handle those problems. For example by splitting data to several tables or databases.
+I have added a repository level for some crucial models (User, Job). That was done with thoughts in mind that those models can be heavy loaded  with database records, and repository level will help to handle those problems. For example by splitting data to several tables or databases.
 
 Controller's actions were named in restful way. Migrations and Seeders were used for schema definition and initial users creation. 
 
-Too keep application responsive to user. Some logic which can slow down server response were implemented in delayed tasks. Which were generated then some event happens. For example mail delivery. In `AppServiceProvider` you can look how events are transformed to delayed jobs. For queues i like to use pheanstalk.
+Too keep application responsive to user some logic which can slow down server response were implemented in delayed tasks. Which were generated then some event happens. For example mail delivery. In `AppServiceProvider` you can look how events are transformed to delayed jobs. For queues I like to use pheanstalk.
 
 I have tried to use Laravel default solutions (user auth and registration) to keep my code simple but in our projects sometimes we are using custom solutions.
 
