@@ -1,27 +1,50 @@
-## Laravel PHP Framework
+## Requirements
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+All Laravel requirements plus `short_open_tag = On` in php settings.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## Installation
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+    git clone https://github.com/kaainet/holidaypirates-task.git
 
-## Official Documentation
+    php artisan migrate --seed
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+To reset database data to defaults run:
 
-## Contributing
+    php artisan migrate:refresh --seed
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+To run delayed jobs run:
 
-## Security Vulnerabilities
+    php artisan queue:listen --queue=holidaypirates.default --env=local
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+Default users:
 
-### License
+    admin@holidaypirates.vg
+    admin
+    
+    moderator@holidaypirates.vg
+    moderator
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Default groups:
+
+    Admins
+    Moderators
+
+Default permissions:
+
+    'App\Http\Controllers\Moderator\Job\JobController@index'
+    'App\Http\Controllers\Moderator\Job\JobController@statusShift'
+
+## Highlights
+
+I have implemented user based job dashboard. To post a job you have to be registered. Each user can participate in several groups and have corresponding permissions. Those permissions are checked to access some restricted actions. For example users and jobs moderation.
+
+I have add theme support based on Laravel view hints (look `AppServiceProvider`). Based on that moderator theme was separated from main user theme (called pirates).
+
+I have add a repository level for some crucial models (User, Job). That were done with thoughts in mind that those models can be very loaded  with database records, and in repository level will help to handle those problems. For example by splitting data to several tables or databases.
+
+Controller's actions were named in restful way. Migrations and Seeders were used for schema definition and initial users creation. 
+
+Too keep application responsive to user. Some logic which can slow down server response were implemented in delayed tasks. Which were generated then some event happens. For example mail delivery. In `AppServiceProvider` you can look how events are transformed to delayed jobs. For queues i like to use pheanstalk.
+
+I have tried to use Laravel default solutions (user auth and registration) to keep my code simple but in our projects sometimes we are using custom solutions.
+
